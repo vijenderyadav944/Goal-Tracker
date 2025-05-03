@@ -3,7 +3,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image'; // Import Next.js Image component
 import { v4 as uuidv4 } from 'uuid';
 
 // Theme Context
@@ -1049,23 +1048,5 @@ const GoalTrackerWithTheme: NextPage = () => {
     </ThemeProvider>
   );
 };
-
-// Add Tailwind CSS classes
-const tailwindCSS = `
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-body {
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-`;
 
 export default GoalTrackerWithTheme;
