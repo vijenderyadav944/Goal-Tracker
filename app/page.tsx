@@ -3,6 +3,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image'; // Import Next.js Image component
 import { v4 as uuidv4 } from 'uuid';
 
 // Theme Context
@@ -233,7 +234,7 @@ const GoalTracker: NextPage = () => {
   const [filterStatus, setFilterStatus] = useState<string>('All');
   const [filterCategory, setFilterCategory] = useState<string>('All');
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentUser, setCurrentUser] = useState<User>(users[0]);
+  const [currentUser] = useState<User>(users[0]); // Remove unused setCurrentUser
   const [isClient, setIsClient] = useState(false);
   
   // Use useEffect to initialize from localStorage only after component is mounted on client
@@ -248,10 +249,10 @@ const GoalTracker: NextPage = () => {
         // Parse the JSON and convert date strings back to Date objects
         const parsedGoals = JSON.parse(savedGoals);
         // Convert string dates back to Date objects
-        const hydratedGoals = parsedGoals.map((goal: any) => ({
+        const hydratedGoals = parsedGoals.map((goal: Goal) => ({
           ...goal,
           createdAt: new Date(goal.createdAt),
-          comments: goal.comments.map((comment: any) => ({
+          comments: goal.comments.map((comment: Comment) => ({
             ...comment,
             timestamp: new Date(comment.timestamp)
           }))
@@ -481,6 +482,7 @@ const GoalTracker: NextPage = () => {
     }
   };
 
+  // Replace img elements with Next.js Image component
   return (
     <div
       className={`min-h-screen transition-colors duration-200 ${
@@ -538,10 +540,10 @@ const GoalTracker: NextPage = () => {
               <ThemeToggle />
               <div className="flex items-center space-x-2">
                 <img
-                  src={currentUser.avatar}
-                  alt={currentUser.name}
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
                   className="w-10 h-10 rounded-full border-2 border-white"
-                />
+                  />
                 <span className="font-medium">{currentUser.name}</span>
               </div>
             </div>
@@ -699,11 +701,11 @@ const GoalTracker: NextPage = () => {
                           return user ? (
                             <img
                               key={index}
-                              src={user.avatar}
-                              alt={user.name}
+                                src={user.avatar}
+                                alt={user.name}
                               className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-800"
-                              title={user.name}
-                            />
+                                title={user.name}
+                              />
                           ) : null;
                         })}
                       </div>
